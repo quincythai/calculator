@@ -1,0 +1,16 @@
+:root {
+  --pink: #fdefef;
+  --beige: #FAF0E4;
+  --pastel: #DAD0C2;
+  --brown: #CDBBA7;
+
+  --black: #393E46;
+  --gray: #EEEEEE;
+  --teal: #9BCDD2;
+  --orange: #FF8551;
+}
+
+body {
+  background-color: var(--gray);
+}
+
