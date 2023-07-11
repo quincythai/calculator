@@ -10,7 +10,33 @@
   --orange: #FF8551;
 }
 
-body {
-  background-color: var(--gray);
+/* Disable scrolling */
+html, body {
+  overflow: hidden;
+  height: 100%;
 }
 
+body {
+  font-family: 'Lora', serif;
+  background-color: var(--gray);
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.calculator {
+  width: 400px;
+  height: 600px;
+  background-color: var(--black);
+}
+
+.footer {
+  text-align: center;
+  padding: 25px;
+}
