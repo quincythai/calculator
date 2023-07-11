@@ -34,6 +34,16 @@ body {
   width: 400px;
   height: 600px;
   background-color: var(--black);
+  border-radius: 20px;
+  padding: 30px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.screen {
+  background-color: white;
+  height: 100px;
 }
 
 .footer {
