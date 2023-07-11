@@ -40,3 +40,20 @@ body {
   text-align: center;
   padding: 25px;
 }
+
+.footer a {
+  text-decoration: none;
+  outline: none;
+  color: black;
+  margin-right: 20px;
+}
+
+.footer img {
+  height: 30px;
+  width: 30px;
+  vertical-align: -0.5em;
+}
+
+.footer span {
+  margin-right: 10px;
+}
