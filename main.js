@@ -33,3 +33,20 @@ function operate(operator, a, b) {
       break;
   }
 }
+
+// allows number buttons to display on calculator screen
+let displayValue = 0;
+const display = document.getElementById('screen-text');
+const numberButtons = document.querySelectorAll(".number-button");
+numberButtons.forEach(button => {
+  button.addEventListener('click', populate);
+})
+
+function populate(e) {
+  if (displayValue === 0) {
+    display.innerHTML = "";
+  }
+  display.innerHTML += e.target.innerHTML;
+  displayValue = parseInt(display.innerHTML);
+  console.log(displayValue);
+}
