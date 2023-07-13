@@ -7,13 +7,13 @@ function subtract(a, b) {
 }
 
 function multiply(a, b) {
-  if (b === 0) {
-    return "Error, division by 0.";
-  }
   return a * b;
 }
 
 function divide(a, b) {
+  if (b === 0) {
+    errorByZeroDivison = true;
+  }
   return a / b;
 }
 
@@ -38,8 +38,10 @@ function operate(operator, a, b) {
 let displayValue = 0;
 let firstValue = 0;
 let secondValue = 0;
+let result = 0;
 let operator = null;
 let pair = false;
+let errorByZeroDivison = false;
 
 const display = document.getElementById('screen-text');
 const numberButtons = document.querySelectorAll(".number-button");
@@ -67,8 +69,8 @@ operatorButtons.forEach(button => {
 function setOperator(op) {
     operator = op;
     firstValue = displayValue;
-    clearDisplay();
     pair = true;
+    clearDisplay();
 }
 
 const clearButton = document.getElementById('clear-button');
@@ -82,7 +84,11 @@ function clearDisplay() {
 // Rounds value to 3 decimals
 function displayResult(value) {
   // First get decimal (EX: 0.500), then remove trailing 0's
-  display.innerHTML = parseFloat(value.toFixed(3));
+  if (errorByZeroDivison) {
+    display.innerHTML = "Error, divison by 0";
+  } else {
+    display.innerHTML = parseFloat(value.toFixed(3));
+  }
 }
 
 const equalButton = document.getElementById('equal-button');
@@ -91,9 +97,8 @@ equalButton.addEventListener('click', calculate)
 function calculate() {
   if (pair) {
     secondValue = displayValue;
-    let result = operate(operator, firstValue, secondValue);
-    displayValue = result;
-    displayResult(displayValue);
+    result = operate(operator, firstValue, secondValue);
+    displayResult(result);
   }
 }
 
@@ -102,4 +107,5 @@ function reset() {
   firstValue = 0;
   secondValue = 0;
   operator = null;
+  pair = false;
 }
