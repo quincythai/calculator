@@ -70,7 +70,12 @@ body {
 }
 
 .zero-button {
-  grid-column: span 2; /* Make this button span two columns */
+  grid-column: span 2;
+  width: auto;
+  border-radius: 2.5rem;
+
+  text-align: left;
+  padding-left: 20px;
 }
 
 .screen-text {
