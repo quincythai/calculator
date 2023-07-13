@@ -79,19 +79,22 @@ function clearDisplay() {
   console.log(displayValue);
 }
 
+// Rounds value to 3 decimals
 function displayResult(value) {
-  display.innerHTML = value;
+  // First get decimal (EX: 0.500), then remove trailing 0's
+  display.innerHTML = parseFloat(value.toFixed(3));
 }
 
 const equalButton = document.getElementById('equal-button');
 equalButton.addEventListener('click', calculate)
 
 function calculate() {
-  secondValue = displayValue;
-  debugger
-  let result = operate(operator, firstValue, secondValue);
-  displayValue = result;
-  displayResult(displayValue);
+  if (pair) {
+    secondValue = displayValue;
+    let result = operate(operator, firstValue, secondValue);
+    displayValue = result;
+    displayResult(displayValue);
+  }
 }
 
 function reset() {
