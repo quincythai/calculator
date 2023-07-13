@@ -40,7 +40,7 @@ let firstValue = 0;
 let secondValue = 0;
 let result = 0;
 let operator = null;
-let pair = false;
+let pendingOperation = false;
 let errorByZeroDivison = false;
 
 const display = document.getElementById('screen-text');
@@ -55,10 +55,14 @@ numberButtons.forEach(button => {
 function populate(number) {
   if (displayValue === 0) {
     display.innerHTML = "";
+  } 
+
+  if (pair) {
+    display.innerHTML = number;
+  } else {
+    display.innerHTML += number;
   }
-  display.innerHTML += number;
   displayValue = parseInt(display.innerHTML);
-  console.log(displayValue);
 }
 
 const operatorButtons = document.querySelectorAll(".operator-button");
@@ -67,10 +71,14 @@ operatorButtons.forEach(button => {
 });
 
 function setOperator(op) {
+  if (pair) {
+    calculate();
+  } else {
     operator = op;
     firstValue = displayValue;
     pair = true;
     clearDisplay();
+  }
 }
 
 const clearButton = document.getElementById('clear-button');
@@ -95,7 +103,7 @@ const equalButton = document.getElementById('equal-button');
 equalButton.addEventListener('click', calculate)
 
 function calculate() {
-  if (pair) {
+  if (pendingOperation) {
     secondValue = displayValue;
     result = operate(operator, firstValue, secondValue);
     displayResult(result);
@@ -107,5 +115,5 @@ function reset() {
   firstValue = 0;
   secondValue = 0;
   operator = null;
-  pair = false;
+  pendingOperation = false;
 }
