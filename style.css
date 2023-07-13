@@ -44,6 +44,16 @@ body {
 .screen {
   background-color: white;
   height: 100px;
+  border-radius: 20px;
+
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.screen-text {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
 }
 
 .footer {
