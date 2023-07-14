@@ -46,6 +46,7 @@ function clearScreen() {
   displayValue = 0;
   operator = null;
   timeToResetDisplay = false;
+  subtextParagraph.textContent = "";
 }
 
 const MAX_NUMBERS = 16;
@@ -82,6 +83,7 @@ function setOperator(op) {
   operator = op;
   console.log(operator);
   timeToResetDisplay = true;
+  subtextParagraph.textContent = `${firstValue} ${operator}`;
 }
 
 const equalsButton = document.getElementById('equal-button');
@@ -91,6 +93,7 @@ function evaluate() {
   if (firstValue != null && operator != null) {
     let result = operate(operator, firstValue, displayValue);
     updateDisplay(result);
+    subtextParagraph.textContent = `${firstValue} ${operator} ${displayValue} = `;
   }
 }
 
@@ -98,3 +101,4 @@ function updateDisplay(result) {
   screen.textContent = result;
 }
 
+const subtextParagraph = document.getElementById('subtext');
