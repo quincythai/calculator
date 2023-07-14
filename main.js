@@ -92,7 +92,7 @@ equalsButton.addEventListener('click', evaluate);
 function evaluate() {
   if (firstValue != null && operator != null) {
     let result = operate(operator, firstValue, displayValue);
-    updateDisplay(result);
+    updateDisplay(round(result));
     subtextParagraph.textContent = `${firstValue} ${operator} ${displayValue} = `;
   }
 }
@@ -102,3 +102,7 @@ function updateDisplay(result) {
 }
 
 const subtextParagraph = document.getElementById('subtext');
+
+function round(value) {
+  return parseFloat(value.toFixed(3))
+}
