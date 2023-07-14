@@ -1,6 +1,6 @@
 const MAX_NUMBERS = 16;
-let displayValue;
-let firstValue;
+let displayValue = 0;
+let firstValue = 0;
 let operator = null;
 let timeToResetDisplay = false;
 
@@ -41,22 +41,34 @@ function populate(number) {
     displayValue = Number(screen.textContent);
     if (operator != null) {
       subtextParagraph.textContent = `${firstValue} ${operator} ${displayValue}`;
+    } else {
+      subtextParagraph.textContent = "";
     }
   }
 }
 
-function setOperator(op) {
-  firstValue = displayValue;
-  operator = op;
-  timeToResetDisplay = true;
-  subtextParagraph.textContent = `${firstValue} ${operator}`;
+function setOperator(op) { 
+  debugger
+  if (operator != null) {
+    evaluate();
+  } else {
+    firstValue = displayValue;
+    operator = op;
+    timeToResetDisplay = true;
+    subtextParagraph.textContent = `${firstValue} ${operator}`;
+  }
 }
 
 function evaluate() {
   if (firstValue != null && operator != null) {
     let result = operate(operator, firstValue, displayValue);
     updateDisplay(result);
+
+    if (equalsButton)
     subtextParagraph.textContent = `${firstValue} ${operator} ${displayValue} = `;
+    displayValue = Number(screen.textContent);
+    timeToResetDisplay = true;
+    operator = null;
   }
 }
 
