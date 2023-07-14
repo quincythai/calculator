@@ -13,8 +13,18 @@ function multiply(a, b) {
 function divide(a, b) {
   if (b === 0) {
     errorByZeroDivison = true;
+    return;
+  } else {
+    return a / b;
   }
-  return a / b;
+}
+
+function modulo(a, b) {
+  if (b === 0) {
+    errorByZeroDivison = true;
+  } else {
+    return a % b;
+  }
 }
 
 // Returns the result of using a operator b.
@@ -26,8 +36,10 @@ function operate(operator, a, b) {
       return subtract(a, b);
     case 'x':
       return multiply(a, b);
-    case '/':
+    case '÷':
       return divide(a, b);
+    case '%':
+      return modulo(a, b);
     default:
       console.log("Error");
       break;
@@ -57,7 +69,7 @@ function populate(number) {
     display.innerHTML = "";
   } 
 
-  if (pair) {
+  if (pendingOperation) {
     display.innerHTML = number;
   } else {
     display.innerHTML += number;
@@ -71,13 +83,13 @@ operatorButtons.forEach(button => {
 });
 
 function setOperator(op) {
-  if (pair) {
+  if (pendingOperation) {
     calculate();
   } else {
     operator = op;
     firstValue = displayValue;
-    pair = true;
-    clearDisplay();
+    pendingOperation = true;
+    displaySubtext();
   }
 }
 
@@ -86,16 +98,28 @@ clearButton.addEventListener('click', clearDisplay);
 function clearDisplay() {
   displayValue = 0;
   display.innerHTML = "0";
-  console.log(displayValue);
+  subtextParagraph.innerHTML = "";
+  reset();
 }
 
 // Rounds value to 3 decimals
 function displayResult(value) {
   // First get decimal (EX: 0.500), then remove trailing 0's
   if (errorByZeroDivison) {
+    display.style.fontSize = "30px";
     display.innerHTML = "Error, divison by 0";
   } else {
     display.innerHTML = parseFloat(value.toFixed(3));
+  }
+}
+
+const subtextParagraph = document.getElementById('subtext');
+function displaySubtext() {
+  if (operator != null) {
+    subtextParagraph.innerHTML = `${firstValue} ${operator}`
+  }
+  if (secondValue == null) {
+    subtextParagraph.innerHTML += "= ";
   }
 }
 
@@ -103,6 +127,7 @@ const equalButton = document.getElementById('equal-button');
 equalButton.addEventListener('click', calculate)
 
 function calculate() {
+  debugger
   if (pendingOperation) {
     secondValue = displayValue;
     result = operate(operator, firstValue, secondValue);
@@ -110,10 +135,12 @@ function calculate() {
   }
 }
 
+
 function reset() {
   displayValue = 0;
   firstValue = 0;
   secondValue = 0;
   operator = null;
   pendingOperation = false;
+  errorByZeroDivison = false;
 }

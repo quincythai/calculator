@@ -20,7 +20,7 @@ html, body {
 
 body {
   font-family: 'Lora', serif;
-  background-color: var(--gray);
+  background-color: var(--paste);
   display: flex;
   flex-direction: column;
 }
@@ -41,6 +41,7 @@ body {
 
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .top-row {
@@ -58,10 +59,16 @@ body {
 
 .screen {
   background-color: white;
-  height: 100px;
+  height: 120px;
   border-radius: 20px;
   margin-bottom: 30px;
   position: relative;
+}
+
+.subtext {
+  position: absolute;
+  top: 10px;
+  right: 20px;
 }
 
 .screen-text {
