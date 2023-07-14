@@ -37,7 +37,18 @@ function operate(operator, a, b) {
   }
 }
 
-const MAX_NUMBERS = 17;
+const clearButton = document.getElementById('clear-button');
+clearButton.addEventListener('click', clearScreen);
+
+function clearScreen() {
+  screen.textContent = "0";
+  firstValue = 0;
+  displayValue = 0;
+  operator = null;
+  timeToResetDisplay = false;
+}
+
+const MAX_NUMBERS = 16;
 let displayValue;
 const numberButtons = document.querySelectorAll('.number-button');
 numberButtons.forEach((button) => {
@@ -47,11 +58,43 @@ numberButtons.forEach((button) => {
 const screen = document.getElementById('screen-text');
 function populate(number) {
   if (screen.textContent.length < MAX_NUMBERS) {
-    if (screen.textContent === "0") {
+    if (screen.textContent === "0" || timeToResetDisplay) {
       screen.textContent = number;
+      timeToResetDisplay = false;
     } else {
       screen.textContent += number;
     }
+    displayValue = Number(screen.textContent);
+    console.log(displayValue);
   }
+}
+
+const operationButtons = document.querySelectorAll('.operator-button');
+operationButtons.forEach((button) => {
+  button.addEventListener('click', () => setOperator(button.textContent));
+})
+
+let firstValue;
+let operator = null;
+let timeToResetDisplay = false;
+function setOperator(op) {
+  firstValue = displayValue;
+  operator = op;
+  console.log(operator);
+  timeToResetDisplay = true;
+}
+
+const equalsButton = document.getElementById('equal-button');
+equalsButton.addEventListener('click', evaluate);
+
+function evaluate() {
+  if (firstValue != null && operator != null) {
+    let result = operate(operator, firstValue, displayValue);
+    updateDisplay(result);
+  }
+}
+
+function updateDisplay(result) {
+  screen.textContent = result;
 }
 
