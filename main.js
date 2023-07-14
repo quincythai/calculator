@@ -36,3 +36,22 @@ function operate(operator, a, b) {
       return null;
   }
 }
+
+const MAX_NUMBERS = 17;
+let displayValue;
+const numberButtons = document.querySelectorAll('.number-button');
+numberButtons.forEach((button) => {
+  button.addEventListener('click', () => populate(button.textContent));
+});
+
+const screen = document.getElementById('screen-text');
+function populate(number) {
+  if (screen.textContent.length < MAX_NUMBERS) {
+    if (screen.textContent === "0") {
+      screen.textContent = number;
+    } else {
+      screen.textContent += number;
+    }
+  }
+}
+
