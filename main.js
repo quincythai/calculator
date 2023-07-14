@@ -11,11 +11,13 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-  return a / b;
+  if (b === 0) return null;
+  else return a / b;
 }
 
 function modulo(a, b) {
-  return a % b;
+  if (b === 0) return null;
+  else return a % b;
 }
 
 // Returns the result of using a operator b.
@@ -58,7 +60,7 @@ numberButtons.forEach((button) => {
 
 const screen = document.getElementById('screen-text');
 function populate(number) {
-  if (screen.textContent.length < MAX_NUMBERS) {
+  if (screen.textContent.length < MAX_NUMBERS || timeToResetDisplay) {
     if (screen.textContent === "0" || timeToResetDisplay) {
       screen.textContent = number;
       timeToResetDisplay = false;
@@ -66,7 +68,9 @@ function populate(number) {
       screen.textContent += number;
     }
     displayValue = Number(screen.textContent);
-    console.log(displayValue);
+    if (operator != null) {
+      subtextParagraph.textContent = `${firstValue} ${operator} ${displayValue}`;
+    }
   }
 }
 
@@ -92,13 +96,25 @@ equalsButton.addEventListener('click', evaluate);
 function evaluate() {
   if (firstValue != null && operator != null) {
     let result = operate(operator, firstValue, displayValue);
-    updateDisplay(round(result));
+    updateDisplay(result);
     subtextParagraph.textContent = `${firstValue} ${operator} ${displayValue} = `;
   }
 }
 
 function updateDisplay(result) {
-  screen.textContent = result;
+  if (result === null) {
+    screen.style.fontSize = "26px";
+    if (operator === '%') {
+      screen.textContent = "Error, cannot % by 0.";
+    } else if (operator === '÷') {
+      screen.textContent = "Error, cannot ÷ by 0.";
+    } else {
+      screen.textContent = "Error";
+    }
+    timeToResetDisplay = true; 
+  } else {
+    screen.textContent = round(result);
+  }
 }
 
 const subtextParagraph = document.getElementById('subtext');
