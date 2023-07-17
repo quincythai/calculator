@@ -10,6 +10,9 @@
   --darkest-gray: #595959;
   --teal: #9BCDD2;
   --orange: #FF8551;
+  --pastel-red: #FF6962;
+  --pastel-yellow :#FFE08E;
+  --pastel-green: #77DD77;
 }
 
 /* Disable scrolling */
@@ -35,7 +38,7 @@ body {
 .calculator {
   width: 300px;
   height: 500px;
-  background-color: black;
+  background-color: #212121;
   border-radius: 20px;
   padding: 30px;
 
@@ -82,13 +85,43 @@ body {
 }
 
 .button {
-  cursor: pointer;
   border: none;
   width: 60px;
   height: 60px;
   border-radius: 50%;
   font-weight: bold;
   font-size: 30px;
+  box-shadow: 4px 4px 4px 2px rgba(0,0,0,0.2);
+
+  transition: all .15s ease-in-out;
+}
+
+.button:hover {
+  cursor: pointer;
+  transform: translateY(-0.2rem);  
+}
+
+.button:active {
+  transform: translateY(0rem);
+}
+
+.number-button:hover {
+  background-color: var(--darker-gray);
+  color: black;
+}
+
+.clear-button:hover,
+.plus-minus-button:hover {
+  background-color: var(--pastel-red);
+  color: white;
+}
+
+.operator-button:hover {
+  background-color: var(--pastel-yellow);
+}
+
+.equal-button:hover {
+  background-color: var(--pastel-green);
 }
 
 .zero-button {

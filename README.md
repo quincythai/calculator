@@ -14,3 +14,5 @@ Use padding for button flexibility, but in this case I use predetermined width a
 To make the 0 button, I made it span 2 columns, force the width to take up the remaining space, and put border-radius at 2.5rem, which means 2.5x the font size of the root (html) element
 
 When writing the equals function, I realize its better to have an evaluate "middle-man" function to check the cases, and then from there call operate if it seems fit.
+
+You can have buttons translate up with a transformation, remember to put transition on the parent element to have it move smoothly.
