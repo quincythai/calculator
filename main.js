@@ -48,27 +48,38 @@ function populate(number) {
 }
 
 function setOperator(op) { 
-  debugger
-  if (operator != null) {
-    evaluate();
-  } else {
-    firstValue = displayValue;
+  if (operator === null && op != "=") { // very first operation
+    firstValue = displayValue; // store the firstValue
+    displayValue = null;
     operator = op;
     timeToResetDisplay = true;
     subtextParagraph.textContent = `${firstValue} ${operator}`;
+  } else { // subsequent operations
+    evaluate();
   }
 }
 
+// TODO: Figure out how to evaluate a pair first before another operator is processed
+// 
 function evaluate() {
-  if (firstValue != null && operator != null) {
+  // in order to not break equals sign
+  if (firstValue != null && operator != null && displayValue != null) {
+    // perform calculation and display result
     let result = operate(operator, firstValue, displayValue);
     updateDisplay(result);
 
-    if (equalsButton)
-    subtextParagraph.textContent = `${firstValue} ${operator} ${displayValue} = `;
+    // case: user enters another operator
+    if (operator !== "=") {
+      subtextParagraph.textContent = `${firstValue} ${operator} ${displayValue} = `;
+      firstValue = displayValue;
+    } else { // case: user hit = button
+      subtextParagraph.textContent = "";
+      firstValue = 0;
+    }
+
     displayValue = Number(screen.textContent);
-    timeToResetDisplay = true;
-    operator = null;
+    timeToResetDisplay = true; // next number will clear screen
+    operator = null; // reset everytime regardless of outcome
   }
 }
 
