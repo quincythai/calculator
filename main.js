@@ -3,6 +3,7 @@ let displayValue = 0;
 let firstValue = 0;
 let operator = null;
 let timeToResetDisplay = false;
+let isDecimal = false;
 
 const screen = document.getElementById('screen-text');
 const subtextParagraph = document.getElementById('subtext');
@@ -12,6 +13,7 @@ const numberButtons = document.querySelectorAll('.number-button');
 const operationButtons = document.querySelectorAll('.operator-button');
 const equalsButton = document.getElementById('equal-button');
 const invertSignButton = document.getElementById('inverse-button');
+const decimalButton = document.getElementById('decimal-button');
 
 clearButton.addEventListener('click', clearScreen);
 numberButtons.forEach((button) => {
@@ -22,6 +24,7 @@ operationButtons.forEach((button) => {
 });
 equalsButton.addEventListener('click', evaluate);
 invertSignButton.addEventListener('click', swapSigns);
+decimalButton.addEventListener('click', decimalButton);
 
 function clearScreen() {
   screen.textContent = "0";
@@ -110,9 +113,13 @@ function swapSigns() {
   screen.textContent = displayValue;
 }
 
-// function convertToDecimal() {
-
-// }
+function addDecimal() {
+  if (isDecimal) {
+    
+  } else {
+    
+  }
+}
 
 // Functions for addition, subtraction, multiplication, division, and modulo
 function add(a, b) {
