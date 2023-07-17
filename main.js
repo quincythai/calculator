@@ -11,6 +11,7 @@ const clearButton = document.getElementById('clear-button');
 const numberButtons = document.querySelectorAll('.number-button');
 const operationButtons = document.querySelectorAll('.operator-button');
 const equalsButton = document.getElementById('equal-button');
+const invertSignButton = document.getElementById('inverse-button');
 
 clearButton.addEventListener('click', clearScreen);
 numberButtons.forEach((button) => {
@@ -20,6 +21,7 @@ operationButtons.forEach((button) => {
   button.addEventListener('click', () => setOperator(button.textContent));
 });
 equalsButton.addEventListener('click', evaluate);
+invertSignButton.addEventListener('click', swapSigns);
 
 function clearScreen() {
   screen.textContent = "0";
@@ -102,6 +104,15 @@ function updateDisplay(result) {
 function round(value) {
   return parseFloat(value.toFixed(3))
 }
+
+function swapSigns() {
+  displayValue = -displayValue;
+  screen.textContent = displayValue;
+}
+
+// function convertToDecimal() {
+
+// }
 
 // Functions for addition, subtraction, multiplication, division, and modulo
 function add(a, b) {
