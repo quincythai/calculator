@@ -24,7 +24,7 @@ operationButtons.forEach((button) => {
 });
 equalsButton.addEventListener('click', evaluate);
 invertSignButton.addEventListener('click', swapSigns);
-decimalButton.addEventListener('click', decimalButton);
+decimalButton.addEventListener('click', addDecimal);
 
 function clearScreen() {
   screen.textContent = "0";
@@ -59,6 +59,7 @@ function setOperator(op) {
     operator = op;
     timeToResetDisplay = true;
     subtextParagraph.textContent = `${firstValue} ${operator}`;
+    isDecimal = false;
   } else { // subsequent operations
     evaluate();
   }
@@ -85,6 +86,7 @@ function evaluate() {
     displayValue = Number(screen.textContent);
     timeToResetDisplay = true; // next number will clear screen
     operator = null; // reset everytime regardless of outcome
+    isDecimal = false;
   }
 }
 
@@ -114,10 +116,11 @@ function swapSigns() {
 }
 
 function addDecimal() {
-  if (isDecimal) {
-    
-  } else {
-    
+  if (!isDecimal) {
+    let str = displayValue + ".";
+    displayValue = Number(displayValue);
+    screen.textContent = str;
+    isDecimal = true;
   }
 }
 

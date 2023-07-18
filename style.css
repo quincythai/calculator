@@ -51,7 +51,8 @@ body {
   background-color: var(--darker-gray);
 }
 
-.number-button {
+.number-button,
+.decimal-button {
   background-color: var(--darkest-gray);
   color: white;
 }
@@ -105,7 +106,8 @@ body {
   transform: translateY(0rem);
 }
 
-.number-button:hover {
+.number-button:hover,
+.decimal-button:hover {
   background-color: var(--darker-gray);
   color: black;
 }
