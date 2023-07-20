@@ -1,4 +1,4 @@
-const MAX_NUMBERS = 16;
+const MAX_NUMBERS = 12;
 let displayValue = 0;
 let firstValue = 0;
 let operator = null;
@@ -7,7 +7,6 @@ let isDecimal = false;
 
 const screen = document.getElementById('screen-text');
 const subtextParagraph = document.getElementById('subtext');
-
 const clearButton = document.getElementById('clear-button');
 const numberButtons = document.querySelectorAll('.number-button');
 const operationButtons = document.querySelectorAll('.operator-button');
@@ -28,14 +27,15 @@ equalsButton.addEventListener('click', evaluate);
 invertSignButton.addEventListener('click', swapSigns);
 decimalButton.addEventListener('click', addDecimal);
 cButton.addEventListener('click', deleteNumber);
+document.addEventListener('keydown', handleKeyPress);
 
 function clearScreen() {
   screen.textContent = "0";
+  subtextParagraph.textContent = "";
   firstValue = 0;
   displayValue = 0;
   operator = null;
   timeToResetDisplay = false;
-  subtextParagraph.textContent = "";
   isDecimal = false;
 }
 
@@ -57,13 +57,13 @@ function populate(number) {
 }
 
 function setOperator(op) { 
-  if (operator === null && op != "=") { // very first operation
-    firstValue = displayValue; // store the firstValue
-    displayValue = 0;
+  if (operator === null && op != "=") { // first operation
+    firstValue = displayValue;
     operator = op;
     timeToResetDisplay = true;
-    subtextParagraph.textContent = `${firstValue} ${operator}`;
+    displayValue = 0;
     isDecimal = false;
+    subtextParagraph.textContent = `${firstValue} ${operator}`;
   } else { // subsequent operations
     evaluate();
   }
@@ -133,9 +133,43 @@ function deleteNumber() {
   if (displayValue !== 0) {
     let str = displayValue.toString(); // Convert displayValue to string
     str = str.substring(0, str.length - 1); // Remove the last character
-    console.log(str);
     displayValue = Number(str); // Convert back to number
     screen.textContent = displayValue;
+  }
+}
+
+// keydown is an event, we need to access its info with .key
+function handleKeyPress(event) {
+  const key = event.key;
+  console.log(key)
+
+  // Handle number keys
+  if (/^[0-9]$/.test(key)) {
+    populate(key);
+  }
+  // Handle operator keys
+  else if (/^[+\-x/%]$/.test(key)) {
+    if (key === "/") {
+      setOperator('÷');
+    } else {
+      setOperator(key);
+    }
+  }
+  // Handle "=" key
+  else if (key === "=" || key === "Enter") {
+    evaluate();
+  }
+  // Handle "C" key
+  else if (key === "C" || key === "c") {
+    clearScreen();
+  }
+  // Handle "." key for decimal point
+  else if (key === ".") {
+    addDecimal();
+  }
+  // Handle Backspace key
+  else if (key === "Backspace") {
+    deleteNumber();
   }
 }
 
