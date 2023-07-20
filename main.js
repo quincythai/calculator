@@ -14,6 +14,8 @@ const operationButtons = document.querySelectorAll('.operator-button');
 const equalsButton = document.getElementById('equal-button');
 const invertSignButton = document.getElementById('inverse-button');
 const decimalButton = document.getElementById('decimal-button');
+const cButton = document.getElementById('c-button');
+
 
 clearButton.addEventListener('click', clearScreen);
 numberButtons.forEach((button) => {
@@ -25,6 +27,7 @@ operationButtons.forEach((button) => {
 equalsButton.addEventListener('click', evaluate);
 invertSignButton.addEventListener('click', swapSigns);
 decimalButton.addEventListener('click', addDecimal);
+cButton.addEventListener('click', deleteNumber);
 
 function clearScreen() {
   screen.textContent = "0";
@@ -33,6 +36,7 @@ function clearScreen() {
   operator = null;
   timeToResetDisplay = false;
   subtextParagraph.textContent = "";
+  isDecimal = false;
 }
 
 function populate(number) {
@@ -55,7 +59,7 @@ function populate(number) {
 function setOperator(op) { 
   if (operator === null && op != "=") { // very first operation
     firstValue = displayValue; // store the firstValue
-    displayValue = null;
+    displayValue = 0;
     operator = op;
     timeToResetDisplay = true;
     subtextParagraph.textContent = `${firstValue} ${operator}`;
@@ -65,8 +69,6 @@ function setOperator(op) {
   }
 }
 
-// TODO: Figure out how to evaluate a pair first before another operator is processed
-// 
 function evaluate() {
   // in order to not break equals sign
   if (firstValue != null && operator != null && displayValue != null) {
@@ -92,7 +94,6 @@ function evaluate() {
 
 function updateDisplay(result) {
   if (result === null) {
-    screen.style.fontSize = "26px";
     if (operator === '%') {
       screen.textContent = "Error, cannot % by 0.";
     } else if (operator === '÷') {
@@ -117,12 +118,27 @@ function swapSigns() {
 
 function addDecimal() {
   if (!isDecimal) {
+    if (displayValue === 0) {
+      displayValue = Number(0);
+      timeToResetDisplay = false;
+    }
     let str = displayValue + ".";
     displayValue = Number(displayValue);
     screen.textContent = str;
     isDecimal = true;
   }
 }
+
+function deleteNumber() {
+  if (displayValue !== 0) {
+    let str = displayValue.toString(); // Convert displayValue to string
+    str = str.substring(0, str.length - 1); // Remove the last character
+    console.log(str);
+    displayValue = Number(str); // Convert back to number
+    screen.textContent = displayValue;
+  }
+}
+
 
 // Functions for addition, subtraction, multiplication, division, and modulo
 function add(a, b) {

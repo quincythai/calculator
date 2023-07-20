@@ -113,7 +113,8 @@ body {
 }
 
 .clear-button:hover,
-.plus-minus-button:hover {
+.plus-minus-button:hover,
+.c-button:hover {
   background-color: var(--pastel-red);
   color: white;
 }
